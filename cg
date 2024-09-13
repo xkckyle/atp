@@ -1,0 +1,34 @@
+In 2 steps, In Python, create a table with columns Start_Time(format='%m/%d/%Y %H:%M:%S %p'),Batch_ID,Phase,TargetVol_(mL),Volume,Station (format is letter-#),Chemical,Bath (ranges from A to D).
+
+Set TargetVol_(mL) and Volume to Numeric.
+Set Start_Time to datetime and format='%m/%d/%Y %H:%M:%S %p'
+
+Remove all rows where TargetVol_(mL)<3100
+
+From that table, create a list of Baths, a list of Chemicals, and a list of Stations.
+ Derive a summary table called df_limits showing the max of TargetVol_(mL) by Chemical.
+ Append 2 columns to the summary table:
+UCL as TargetVol_(mL)+300
+LCL as TargetVol_(mL)-300
+
+Using Dash and Plotly, avoid dcc
+Create an app layout with 3 dash tabs.
+
+On the first tab, Title is “ATP Dispense - Run Charts”,
+Create 4 columns of line charts by Bath, 
+And create 4 rows by Chemical.
+With X axis is Start_Time, Y axis is Volume, 
+add a black line for TargetVol_(mL), red lines for LCL and UCL from the summary table of the same chemical and hide these from the legend,
+Only show Chemical on the Legend, Set the marker size small and double the chart height.
+
+On the second tab, create box plots of rows by Chemical, with X is Bath sorted and Y is Volume, points="all"
+
+On the third tab, create 4 rows of scatter plots, color by Bath. X axis is Start_Time, Y axis is Volume, add a black line from TargetVol_(mL) from the summary table of the same chemical, use small markers. 
+ Don’t forget to  plotly.subplots import make_subplots
+Replace `import dash_html_components as html` with `from dash import html`
+Replace `import dash_core_components as dcc` with `from dash import dcc`
+
+Comment out all print lines.
+Add a commented line after “df = pd.DataFrame(data)” of “#df = pd.read_csv('atp.csv'); “
+
+
