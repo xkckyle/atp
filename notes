@@ -1,0 +1,35 @@
+write a python script to do the following:
+without pandas, remove columns with blank headers from "peelp.csv"
+with pandas load csv file named "peelp.csv" as df
+strip the header then replace spaces with '_'
+
+df contains columns named:
+Coll_Dt as a date
+Matrix_Type as text
+Location
+Proj_Num
+Sealer
+Point_A as numeric
+Point_B as numeric
+Point_C as numeric
+Point_D as numeric
+Point_E as numeric
+Point_F as numeric
+Point_Left as numeric
+Point_Center as numeric
+Point_Right as numeric
+please melt all the point columns into a column called Point and a column called Value, 
+set Value to numeric
+remove rows where Coll_Dt<"01-JAN-24"
+remove rows where Value is not numeric
+remove rows where Proj_Num is not blank
+
+
+using plotly and not dash,
+create a scatter plot 
+with x axis as Coll_Dt
+with y axis as Value
+Legend by Sealer
+
+
+add a dropdown to select Matrix_Type and update the chart
