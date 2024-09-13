@@ -1,0 +1,9 @@
+import plotly.graph_objs as go
+import pickle
+
+# Create a sample Plotly figure
+fig = go.Figure(data=[go.Scatter(x=[1, 2, 3], y=[4, 5, 6])])
+
+# Save the figure as a pickle file
+with open('plotly_figure.pkl', 'wb') as f:
+    pickle.dump(fig, f)

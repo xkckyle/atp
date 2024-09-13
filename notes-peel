@@ -1,0 +1,4 @@
+with python
+load csv file named "peelp.csv" as df
+strip the header then replace spaces with '_'
+

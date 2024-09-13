@@ -1,0 +1,48 @@
+In Python, 
+load csv file "atp.csv" with columns: Start_Time(format='%m/%d/%Y %H:%M:%S %p'),Batch_ID,Phase,TargetVol_(mL),Volume,Station (format is letter-#),Chemical,Bath.
+
+Set TargetVol_(mL) and Volume to Numeric.
+Set Start_Time to datetime and format='%m/%d/%Y %H:%M:%S %p'
+
+Remove all rows where TargetVol_(mL)<3100.
+remove rows with Chemical containing "BUFFER"
+limit Bath value to be A to D
+
+Derive a summary table called df_limits showing the max of TargetVol_(mL) by Chemical.
+Append 2 columns to the summary table:
+UCL as TargetVol_(mL)+300
+LCL as TargetVol_(mL)-300
+
+Thank you. 
+Now with Plotly make_subplots, avoid dash: 
+Create line charts with 4 columns and 4 rows, 
+set trace color to blue,
+X axis is Start_Time, Y axis is Volume,
+Bath across columns, Chemical down the rows, each plot has different axis settings, Title is “ATP Dispense - Run Charts”,
+
+overlay a black line TargetVol_(mL) from df_limits, 
+red lines for LCL and UCL from the summary table of the same chemical and hide these from the legend,
+Hide the Legend, Set the marker size small and increase the chart height,
+
+add yellow lines at 1 standard deviation
+auto adjust axis, hide legend.
+
+save as pickle named "atp-new.pkl"
+show fig
+
+<!-- Comment out all print lines.
+Add a commented line after “df = pd.DataFrame(data)” of “#df = pd.read_csv('atp.csv') “ -->
+
+
+
+On the second tab, create box plots of rows by Chemical, with X is Bath sorted and Y is Volume, points="all"
+
+On the third tab, create 4 rows of scatter plots, color by Bath.X axis is Start_Time, Y axis is Volume, add a black line from TargetVol_(mL) from the summary table of the same chemical, use small markers. 
+Don’t forget to  plotly.subplots import make_subplots
+Replace `import dash_html_components as html` with `from dash import html`
+Replace `import dash_core_components as dcc` with `from dash import dcc`
+
+Comment out all print lines.
+Add a commented line after “df = pd.DataFrame(data)” of “#df = pd.read_csv('atp.csv'); “
+
+
