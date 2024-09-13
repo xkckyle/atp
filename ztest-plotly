@@ -1,0 +1,95 @@
+import dash
+from dash import dcc, html
+from dash.dependencies import Input, Output
+import plotly.express as px
+import pandas as pd
+import numpy as np
+
+# Generate some example data
+np.random.seed(0)
+df = pd.DataFrame({
+    'x': np.linspace(0, 10, 100),
+    'y': np.random.normal(0, 1, 100),
+    'category': np.random.choice(['A', 'B', 'C'], 100)
+})
+
+# Initialize the Dash app
+app = dash.Dash(__name__)
+
+# Define layout
+app.layout = html.Div([
+    dcc.Tabs([
+        dcc.Tab(label='Line Plot', children=[
+            html.Div([
+                dcc.Graph(id='line-plot'),
+                dcc.Slider(
+                    id='line-slider',
+                    min=0,
+                    max=10,
+                    step=0.1,
+                    value=5,
+                    marks={i: str(i) for i in range(11)},
+                ),
+            ])
+        ]),
+        dcc.Tab(label='Scatter Plot', children=[
+            html.Div([
+                dcc.Graph(id='scatter-plot'),
+                dcc.Slider(
+                    id='scatter-slider',
+                    min=0,
+                    max=10,
+                    step=0.1,
+                    value=5,
+                    marks={i: str(i) for i in range(11)},
+                ),
+            ])
+        ]),
+        dcc.Tab(label='Bar Plot', children=[
+            html.Div([
+                dcc.Graph(id='bar-plot'),
+                dcc.Slider(
+                    id='bar-slider',
+                    min=0,
+                    max=10,
+                    step=0.1,
+                    value=5,
+                    marks={i: str(i) for i in range(11)},
+                ),
+            ])
+        ]),
+    ])
+])
+
+# Callbacks to update the charts based on slider values
+@app.callback(
+    Output('line-plot', 'figure'),
+    Input('line-slider', 'value')
+)
+def update_line_plot(slider_value):
+    filtered_df = df[df['x'] <= slider_value]
+    fig = px.line(filtered_df, x='x', y='y', title=f'Line Plot (x <= {slider_value})')
+    return fig
+
+@app.callback(
+    Output('scatter-plot', 'figure'),
+    Input('scatter-slider', 'value')
+)
+def update_scatter_plot(slider_value):
+    filtered_df = df[df['x'] <= slider_value]
+    fig = px.scatter(filtered_df, x='x', y='y', color='category', title=f'Scatter Plot (x <= {slider_value})')
+    return fig
+
+@app.callback(
+    Output('bar-plot', 'figure'),
+    Input('bar-slider', 'value')
+)
+def update_bar_plot(slider_value):
+    filtered_df = df[df['x'] <= slider_value]
+    bar_data = filtered_df.groupby('category').size().reset_index(name='count')
+    fig = px.bar(bar_data, x='category', y='count', title=f'Bar Plot (x <= {slider_value})')
+    return fig
+
+# Run the app
+if __name__ == '__main__':
+    app.run_server(debug=True)
